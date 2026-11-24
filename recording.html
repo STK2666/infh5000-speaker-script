@@ -1,0 +1,258 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recording script</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f5f0;color:#1c2b23;font:26px/1.8 system-ui,-apple-system,sans-serif}main{max-width:820px;margin:auto;padding:20px 24px 80px}.number{font-size:15px;color:#738276;letter-spacing:2px;margin-bottom:26px}.speech{white-space:pre-line}section{padding:40px 0 70px;border-bottom:1px solid #c9d5cb;scroll-margin-top:65px}nav{position:sticky;top:0;background:#f4f5f0f5;padding:10px 20px;z-index:2}select{font-size:16px;padding:8px;color:#42604e;border:1px solid #c2d1c4;background:transparent}@media(max-width:500px){body{font-size:23px}main{padding:10px 20px 60px}}</style><nav><select aria-label="Jump to section"><option value="s0">00</option><option value="s1">01</option><option value="s2">02</option><option value="s3">03</option><option value="s4">04</option><option value="s5">05</option><option value="s6">06</option><option value="s7">07</option><option value="s9">09</option><option value="s10">10</option><option value="s11">11</option><option value="s12">12</option><option value="s13">13</option><option value="s14">14</option><option value="s15">15</option><option value="s16">16</option><option value="s17">17</option><option value="s18">18</option><option value="s19">19</option><option value="s20">20</option></select></nav><main><section id="s0"><div class="number">00</div><div class="speech">Hello, I’m Tongkai Shi,
+from Group thirty-seven,
+with Guojun Chen, Xinghao Liang and Zihao Ling.
+
+Our INFO five thousand AI for X project
+is titled “AI for Materials —
+Can We Trust AI-Generated Materials?”
+
+Let’s begin.</div></section><section id="s1"><div class="number">01</div><div class="speech">We explore AI for materials.
+
+Think of AI image generation —
+a model turns noise into a structured picture.
+
+Could that idea help us design new materials?
+
+For crystals,
+we describe a repeating pattern of atoms —
+which elements,
+where they sit,
+and how the cell repeats.
+
+These become the variables that AI learns to generate.
+
+But looking like a crystal is only the first step.
+
+Would its atoms stay balanced?
+
+Would a small disturbance make it change?
+
+To find out,
+we compare fast AI predictions
+with independent physics calculations.
+
+We follow generation,
+control,
+and physical testing —
+how AI builds candidates,
+whether it follows instructions,
+and ultimately,
+can we trust the results?</div></section><section id="s2"><div class="number">02</div><div class="speech">How do we turn an AI-generated structure into
+a materials candidate worth investigating?
+
+We will follow its generation,
+test how well we can control it,
+and compare its predictions with physics.
+
+First,
+let us see how to translate a crystal into
+something a neural network can work with.</div></section><section id="s3"><div class="number">03</div><div class="speech">To generate a crystal,
+the network needs three ingredients.
+
+Element identities tell it what atoms to use.
+
+Fractional coordinates say
+where they sit inside the cell.
+
+The lattice tells it how that cell repeats.
+
+The highlighted atom connects the picture directly to a row of numbers.
+
+Together,
+these variables describe the whole periodic structure.</div></section><section id="s4"><div class="number">04</div><div class="speech">There is one more thing the network needs —
+each atom’s surroundings.
+
+Because a crystal repeats,
+a neighbour may sit just outside the box we draw.
+
+Here,
+including periodic copies reveals those neighbours.
+
+A graph lets atoms exchange information across these connections.
+
+Now the network can use
+local environments when updating the structure.</div></section><section id="s5"><div class="number">05</div><div class="speech">With that representation in place,
+we can ask
+what noise means for a crystal.
+
+An element identity can be hidden behind a MASK.
+
+A position can be displaced,
+and the cell can be distorted.
+
+Here,
+we can see these three effects separately.
+
+Learning to recover them is the basis of the generation process.</div></section><section id="s6"><div class="number">06</div><div class="speech">During training,
+the network learns to recover structure from noisy examples.
+
+During generation,
+we start with a noisy state
+and apply that learned update repeatedly.
+
+The network predicts
+changes to identities,
+positions and the lattice together.
+
+We now understand the recipe.
+
+Next,
+let us watch what happens when we actually run it.</div></section><section id="s7"><div class="number">07</div><div class="speech">Watch the grey sites as the run progresses.
+
+They gradually acquire element identities,
+while the positions and cell keep changing.
+
+The curves show identities resolving and volume evolving.
+
+At the end,
+we have a concrete candidate.
+
+But the route to that result also matters —
+how does a different sampling rule change the journey?</div></section><section id="s9"><div class="number">09</div><div class="speech">A sampling rule decides
+how the model’s updates are applied along the way.
+
+Here,
+three rules start from the same initial state.
+
+Viewed together,
+the runs reveal
+different moments when element identities settle,
+and different paths for the changing cells.
+
+So the trained network is one part of generation;
+the route we take through its predictions also matters.</div></section><section id="s10"><div class="number">10</div><div class="speech">At the endpoints,
+the differences become easier to compare.
+
+Look at the final arrangements and the shared-scale volume curves.
+
+The sampling choice changes both the journey and what it delivers.
+
+Now suppose
+we want a particular kind of material,
+rather than whatever happens to emerge.
+
+Can we steer the generator towards a chosen composition?</div></section><section id="s11"><div class="number">11</div><div class="speech">We give the model a target element set,
+then change guidance strength while keeping the seed fixed.
+
+Watch the formula and oxygen fraction update together.
+
+Guidance changes
+how strongly the target influences generation.
+
+This tells us
+whether the model follows the instruction.
+
+To understand which constraint causes the change,
+we next switch one off.</div></section><section id="s12"><div class="number">12</div><div class="speech">Here we compare paired runs with the same seed,
+target and guidance strength.
+
+The difference is
+whether the target-element mask is enabled.
+
+Follow the connected dots —
+some oxygen fractions change,
+while one pair stays the same.
+
+The paired view makes the effect of this constraint visible.
+
+We can ask the same control question about crystal symmetry.</div></section><section id="s13"><div class="number">13</div><div class="speech">We ask for a space group,
+then identify the symmetry in the generated coordinates.
+
+The identified symmetry can change with the tolerance we use.
+
+Some requested symmetries are reproduced,
+while others depend on
+how precisely we inspect the structure.
+
+So we can influence composition and symmetry.
+
+The next question is
+whether physical calculations support the resulting candidates.</div></section><section id="s14"><div class="number">14</div><div class="speech">We tested eight candidates and examined one copper-palladium case in depth.
+
+Our comparison uses two tools.
+
+MACE is
+a fast AI approximation for energy and forces.
+
+D F T is
+a slower calculation based on electronic structure,
+giving us an independent physics reference.
+
+We start with a simple question —
+do they agree on the forces?</div></section><section id="s15"><div class="number">15</div><div class="speech">For this copper-palladium structure,
+MACE has relaxed the atoms
+until its maximum force is about
+zero point zero zero one three
+electron volts per angstrom.
+
+At exactly the same coordinates,
+D F T gives about
+zero point zero five eight two.
+
+The fast model sees an almost balanced structure;
+the physics reference still sees a stronger push.
+
+Does that disagreement also affect energy trends?</div></section><section id="s16"><div class="number">16</div><div class="speech">For each candidate,
+we evaluate the same geometric change with both methods.
+
+In four of the eight cases,
+the energy-change directions agree.
+
+In the other four,
+one method says the energy goes down
+while the other says it goes up.
+
+That is a striking difference in what improvement means.
+
+Next,
+we test
+how the atoms respond to a small disturbance.</div></section><section id="s17"><div class="number">17</div><div class="speech">Phonons describe collective patterns of atomic motion.
+
+They help us ask
+whether a small disturbance is restored or grows.
+
+Across different vibration directions and wavelengths,
+both methods show a low-frequency dip below zero,
+marking a direction of local instability around the tested structure.
+
+The close-up makes this dip easier to see.
+
+The full pattern tells us something
+a single summary score can miss.</div></section><section id="s18"><div class="number">18</div><div class="speech">Next,
+we look at a separate calculation at Gamma —
+a single reference point,
+evaluated on its own final geometry.
+
+The frequency pairs are close —
+their average absolute difference is about
+zero point zero six six four terahertz.
+
+That looks encouraging.
+
+Together with the wider range of vibrations,
+it shows
+why we need both a close-up and a wider view.
+
+What does the soft mode look like in space?</div></section><section id="s19"><div class="number">19</div><div class="speech">Here,
+we can see groups of atoms moving together.
+
+This turns the dip in the frequency plot into a spatial pattern —
+a direction in which the structure can deform.
+
+The AI and physics calculations give us two patterns to compare.
+
+We have moved
+from a plausible-looking crystal
+to a much richer question —
+how does it respond?</div></section><section id="s20"><div class="number">20</div><div class="speech">AI can generate candidates and help us steer their composition and symmetry.
+
+Our tests also reveal
+where fast predictions and independent physics disagree,
+from forces to energy trends and structural response.
+
+So our answer is to build trust step by step —
+understand the generation,
+test the controls,
+and examine the physics.
+
+That is our exploration of AI for materials.</div></section></main><script>document.querySelector('select').onchange=e=>document.getElementById(e.target.value).scrollIntoView()</script></html>
